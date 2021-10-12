@@ -18,8 +18,8 @@ clean_logs = False
 os.makedirs("logs/", exist_ok=True)
     
 # Rensa loggdata
-if clean_logs:
-    !rm -rf logs/
+#if clean_logs:
+#    !rm -rf logs/
 
 
 # Funktion för att generara en "Confusion matrix" som kan skrivas som en tensorflow bild.
@@ -109,9 +109,12 @@ def non_convolutional_model():
 def convolutional_model():
     model = K.Sequential()
     model.add(K.layers.Input((28,28,1)))
-    model.add(K.layers.Conv2D(16, kernel_size=(8, 8), strides=(1,1), activation="relu"))
+    model.add(K.layers.Conv2D(16, kernel_size=(12, 12), strides=(1,1), activation="relu"))
     model.add(K.layers.MaxPooling2D())
     model.add(K.layers.Flatten())
+    model.add(K.layers.Dense(128, activation="relu"))
+    model.add(K.layers.Dense(64, activation="relu"))
+    model.add(K.layers.Dense(32, activation="relu"))
     model.add(K.layers.Dense(10, activation="softmax"))
     
     model.compile(loss="categorical_crossentropy",
@@ -122,17 +125,18 @@ def convolutional_model():
 
 
 # Mapp för att logga resultat som ska visas i tensorboard
-log_dir = "logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+#log_dir = "logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+log_dir = "logs/fit/" + "CNN_kernel1212_strides11_3hidden_lr003"
 tb_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, profile_batch=0)
 
 # Välj en modell
-model = non_convolutional_model()
+model = convolutional_model()
 
 # Träna modellen
 model.fit(x_train, y_train,
       epochs=50, 
       validation_split=0.2, 
-      batch_size=256,
+      batch_size=32,
       verbose=1,
       callbacks=[tb_callback]
      )
