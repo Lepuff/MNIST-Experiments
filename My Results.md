@@ -11,12 +11,20 @@ I den här filen ska ni beskriva:
 ## 7
 ### a) 
     En högre learning rate innebär att varje epok har en högre vikt och då i teorin gör att modellen tränas snabbare. Men en för hög learning rate gör att resultaten uppdateras för mycket och modellen (kan) hamna på en sub-optimal lösning.
+    Bilderna under visar learning rate 0.01 vs 0.1 och 0.5 vs 0.9
+    
+
+![Learning rate 0.01 vs 0.1](Charts/001vs01.svg "Learning rate 0.01 vs 0.1")
+![Learning rate 0.5 vs 0.9](Charts/05vs09.svg "Learning rate 0.5 vs 0.9")
+
 ### b)
     Generellt så innebär en mindre batch size att du behöver göra färre uppdateringar för att uppnå en viss accuracy jämfört med en modell som har större batch size. Mindre batch sizes är ofta brusiga vilket innebär att det blir färre generaliseringsfel.
 ### c) 
     Convolutional modellen (CNN) är betydligt långsammare än non-convolutional. Med samma parametrar på båda modellerna uppnår CNN en högre accuracy. CNN modeller används främst för att minska komplexiteten för att processa data. Detta görs genom att filtrera bilden och minska dimensionerna. Genom att exempelvis stega igenom en 7x7 matris med en 3x3 kernel, så går vi från en 7x7 matris till 5x5 matris och därmed minskar komplexiteten. Detta kan upprepas. 
 
     Medan en non-convolutional modell (nCNN) går igenom varje pixel för sig.
+    Nedan är en bild på skillnadena mellan dem två modollerna.
+![CNN vs nCNN](Charts/CvsNC_lr001_bs32.svg)
 
 ### d)
     non-convolutional model: Moved data accuracy: 14.74%
